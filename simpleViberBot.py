@@ -30,7 +30,7 @@ viber = Api(BotConfiguration(
 ))
 
 
-@app.route('/', methds=['POST'])
+@app.route('/', methods=['POST'])
 def incoming():
     logger.debug("received request. post data: {0}".format(request.get_data()))
     viber_request = viber.parse_request(request.get_data())
@@ -53,13 +53,13 @@ def incoming():
 
 
 def set_webhook(viber_bot):
-    viber_bot.set_webhook('https://mybotwebserver.com:8443/')
+    viber_bot.set_webhook(botconfig.webhook)
 
 if __name__ == "__main__":
     scheduler = sched.scheduler(time.time(), time.sleep)
     scheduler.enter(5, 1, set_webhook, (viber, ))
     t = threading.Thread(target=scheduler.run)
     t.start()
-
-    app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=botconfig.ssl_context)
+    app.run()
+    #app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=botconfig.ssl_context)
 
