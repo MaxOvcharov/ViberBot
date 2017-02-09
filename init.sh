@@ -2,9 +2,10 @@
 
 sudo rm -rf /etc/nginx/sites-enabled/*
 sudo chmod 777 nginx.conf
-sudo cp nginx.conf /etc/nginx/sites-enabled/ginx.conf
+sudo cp nginx.conf /etc/nginx/sites-enabled/nginx.conf
 sudo nginx -t
 sudo /etc/init.d/nginx restart
-sudo supervisorctl reread
-sudo supervisorctl update
+
+sudo cp gunicorn.conf /etc/supervisor/conf.d/ViberBot.conf
+sudo supervisord -c /etc/supervisor/supervisord.conf
 
