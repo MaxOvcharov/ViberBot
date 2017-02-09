@@ -12,4 +12,8 @@ sudo unlink /var/run/supervisor.sock
 sudo cp gunicorn.conf /etc/supervisor/conf.d/
 sudo supervisord -c /etc/supervisor/supervisord.conf
 
+# Create a systemd Unit File
+sudo cp ViberBot.service /etc/systemd/system/
+sudo systemctl start ViberBot.service
+
 

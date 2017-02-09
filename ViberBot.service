@@ -3,11 +3,10 @@ Description=Gunicorn instance to serve ViberBot
 After=network.target
 
 [Service]
-User=django
-Group=django
-WorkingDirectory=/home/django/ViberBot
-Environment="PATH=/home/django/ViberBot/venv/bin"
-ExecStart=supervisord -c /etc/supervisor/supervisord.conf
+Restart=on-failure
+RestartSec=42s
+User=ubuntu
+ExecStart=/usr/local/bin/supervisord -c /etc/supervisor/supervisord.conf
 
 [Install]
 WantedBy=multi-user.target
