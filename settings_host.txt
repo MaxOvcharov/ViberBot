@@ -164,9 +164,14 @@ sudo supervisord -c /etc/supervisor/supervisord.conf
 # sudo unlink /var/run/supervisor.sock
 
 # Создадим systemd Unit File для запуска
+# Пример в ViberBot.service. ВАЖНО изменить файл под свои данные
 sudo vim /etc/systemd/system/<!!! myproject !!!>.service
 
+# Применение настроек
+sudo systemctl start <!!! myproject !!!>
 
+# Отключить настройки
+#sudo systemctl enable <!!! myproject !!!>
 
 
 
