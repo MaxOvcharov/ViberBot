@@ -6,6 +6,6 @@ sudo cp nginx.conf /etc/nginx/sites-enabled/nginx.conf
 sudo nginx -t
 sudo /etc/init.d/nginx restart
 
-sudo cp gunicorn.conf /etc/supervisor/conf.d/ViberBot.conf
+sudo cp gunicorn.conf /etc/supervisor/conf.d/
 sudo supervisord -c /etc/supervisor/supervisord.conf
 
