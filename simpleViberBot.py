@@ -31,9 +31,10 @@ viber = Api(BotConfiguration(
 
 @app.route("/")
 def hello():
+    logger.debug("Hello URL is working")
     return "<h1 style='color:blue'>Hello There!</h1>"
 
-@app.route('/', methods=['POST'])
+@app.route('/fixme', methods=['POST'])
 def incoming():
     logger.debug("received request. post data: {0}".format(request.get_data()))
     viber_request = viber.parse_request(request.get_data())
@@ -57,7 +58,7 @@ def incoming():
 
 def set_webhook(viber_bot):
     viber_bot.set_webhook(config.webhook)
-    logger.debug("Web hoot was been installed")
+    logger.debug("Web hoot was been set")
 
 if __name__ == "__main__":
     scheduler = sched.scheduler(time.time(), time.sleep)
