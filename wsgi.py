@@ -6,8 +6,8 @@ import logging
 import os
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
-                    level=logging.ERROR,
-                    filename=u'{0}/ViberBot.log'.format(os.getcwd()))
+                    level=logging.DEBUG,
+                    filename=u'{0}/ViberBot_error.log'.format(os.getcwd()))
 
 
 def main():
