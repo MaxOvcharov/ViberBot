@@ -8,4 +8,5 @@ if __name__ == "__main__":
     scheduler.enter(5, 1, set_webhook, (viber,))
     t = threading.Thread(target=scheduler.run)
     t.start()
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
+

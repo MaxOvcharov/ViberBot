@@ -8,7 +8,7 @@ ExecStart=/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ExecStop=/usr/bin/supervisorctl $OPTIONS shutdown
 ExecReload=/usr/bin/supervisorctl $OPTIONS reload
 KillMode=process
-Restart=on-failure
+Restart=always
 RestartSec=50s
 
 [Install]
