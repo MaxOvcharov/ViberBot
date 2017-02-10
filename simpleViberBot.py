@@ -29,13 +29,13 @@ viber = Api(BotConfiguration(
 ))
 
 
-@app.route("/")
-def hello():
-    logging.debug("Hello URL is working")
-    return "<h1 style='color:blue'>Hello There!</h1>"
+# @app.route("/")
+# def hello():
+#     logging.debug("Hello URL is working")
+#     return "<h1 style='color:blue'>Hello There!</h1>"
 
 
-@app.route('/fixme', methods=['POST'])
+@app.route('/', methods=['POST'])
 def incoming():
     logging.debug("received request. post data: {0}".format(request.get_data()))
     viber_request = viber.parse_request(request.get_data())
