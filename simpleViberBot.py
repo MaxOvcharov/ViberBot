@@ -18,7 +18,7 @@ import os
 
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
-                    level=logging.DEBUG,
+                    level=logging.ERROR,
                     filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
