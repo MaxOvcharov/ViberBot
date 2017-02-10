@@ -16,7 +16,9 @@ def main():
         scheduler.enter(5, 1, set_webhook, (viber,))
         t = threading.Thread(target=scheduler.run)
         t.start()
+        logging.debug("Wsgi app is running")
         app.run(host='0.0.0.0', port=8000)
+
     except Exception as e:
         logging.error(e)
 
