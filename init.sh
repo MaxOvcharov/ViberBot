@@ -8,9 +8,9 @@ sudo nginx -t
 sudo /etc/init.d/nginx restart
 
 # Supervisor settings
-sudo unlink /var/run/supervisor.sock
 sudo cp -v gunicorn.conf /etc/supervisor/conf.d/
 sudo alias supervisorctl="supervisorctl -c /etc/supervisor/supervisord.conf"
+sudo service supervisor restart
 
 # Create a systemd Unit File
 sudo cp -v ViberBot.service /etc/systemd/system/
