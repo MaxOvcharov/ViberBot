@@ -9,24 +9,23 @@ from viberbot.api.viber_requests import ViberFailedRequest
 from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
-import botconfig
+import config
 import time
 import logging
 import sched
 import threading
+import os
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+
+logger = logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
+                    level=logging.DEBUG,
+                    filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
 viber = Api(BotConfiguration(
-    name=botconfig.appname,
-    avatar=botconfig.appavatar,
-    auth_token=botconfig.auth_token
+    name=config.appname,
+    avatar=config.appavatar,
+    auth_token=config.auth_token
 ))
 
 
@@ -53,7 +52,7 @@ def incoming():
 
 
 def set_webhook(viber_bot):
-    viber_bot.set_webhook(botconfig.webhook)
+    viber_bot.set_webhook(config.webhook)
     logger.debug("Web hoot was been installed")
 
 if __name__ == "__main__":
