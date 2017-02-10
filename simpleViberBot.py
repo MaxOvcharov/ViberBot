@@ -17,7 +17,7 @@ import threading
 import os
 
 
-logger = logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
+logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.DEBUG,
                     filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
@@ -31,18 +31,19 @@ viber = Api(BotConfiguration(
 
 @app.route("/")
 def hello():
-    logger.debug("Hello URL is working")
+    logging.debug("Hello URL is working")
     return "<h1 style='color:blue'>Hello There!</h1>"
+
 
 @app.route('/fixme', methods=['POST'])
 def incoming():
-    logger.debug("received request. post data: {0}".format(request.get_data()))
+    logging.debug("received request. post data: {0}".format(request.get_data()))
     viber_request = viber.parse_request(request.get_data())
 
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
         message = viber_request.get_message()
-        logger.debug("Received message from user:{0}  with content: {1}".
+        logging.debug("Received message from user:{0}  with content: {1}".
                      format(viber_request.get_sender().get_id(), message))
         viber.send_messages(viber_request.get_sender().get_id(), [message])
     elif isinstance(viber_request, ViberConversationStartedRequest)\
@@ -51,14 +52,14 @@ def incoming():
         viber.send_messages(viber_request.get_user().get_id(),
                             [TextMessage(None, None, viber_request.get_event_type())])
     elif isinstance(viber_request, ViberFailedRequest):
-        logger.warning("client failed receiving message. failure: {0}".format(viber_request))
+        logging.warning("client failed receiving message. failure: {0}".format(viber_request))
 
     return Response(status=200)
 
 
 def set_webhook(viber_bot):
     viber_bot.set_webhook(config.webhook)
-    logger.debug("Web hoot was been set")
+    logging.debug("Web hoot was been set")
 
 if __name__ == "__main__":
     scheduler = sched.scheduler(time.time(), time.sleep)
