@@ -9,7 +9,7 @@ ExecStop=/usr/bin/supervisorctl $OPTIONS shutdown
 ExecReload=/usr/bin/supervisorctl $OPTIONS reload
 KillMode=process
 Restart=always
-RestartSec=50s
+RestartSec=10s
 
 [Install]
 WantedBy=multi-user.target
