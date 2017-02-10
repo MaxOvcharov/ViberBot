@@ -9,7 +9,6 @@ sudo /etc/init.d/nginx restart
 
 # Supervisor settings
 sudo cp -v gunicorn.conf /etc/supervisor/conf.d/
-sudo alias supervisorctl="supervisorctl -c /etc/supervisor/supervisord.conf"
 sudo service supervisor restart
 
 # Create a systemd Unit File
