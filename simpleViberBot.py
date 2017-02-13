@@ -44,8 +44,9 @@ def incoming():
     elif isinstance(viber_request, ViberConversationStartedRequest)\
         or isinstance(viber_request, ViberSubscribedRequest)\
             or isinstance(viber_request, ViberUnsubscribedRequest):
-        viber.send_messages(viber_request.get_user().get_id(),
-                            [TextMessage(None, None, viber_request.get_event_type())])
+        viber.send_messages(viber_request.user.id,
+                            [TextMessage(text="Привет, {0}. Чем я могу тебе помочь".
+                                         format(viber_request.user.name))])
     elif isinstance(viber_request, ViberFailedRequest):
         logging.warning("client failed receiving message. failure: {0}".format(viber_request))
     return Response(status=200)
