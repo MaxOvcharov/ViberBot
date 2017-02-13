@@ -1,4 +1,4 @@
-from .simpleViberBot import app, set_webhook, viber
+from simpleViberBot import app, set_webhook, viber
 import time
 import sched
 import threading

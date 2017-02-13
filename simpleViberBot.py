@@ -38,6 +38,7 @@ viber = Api(BotConfiguration(
 @app.route('/', methods=['POST'])
 def incoming():
     logging.debug("received request. post data: {0}".format(request.get_data()))
+
     viber_request = viber.parse_request(request.get_data())
 
     # Simple Echo messenger
@@ -53,7 +54,6 @@ def incoming():
                             [TextMessage(None, None, viber_request.get_event_type())])
     elif isinstance(viber_request, ViberFailedRequest):
         logging.warning("client failed receiving message. failure: {0}".format(viber_request))
-
     return Response(status=200)
 
 
