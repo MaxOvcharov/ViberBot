@@ -37,16 +37,16 @@ def incoming():
     viber_request = viber.parse_request(request.get_data())
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
-        message = viber_request.get_message()
+        message = viber_request.message
         logging.debug("Received message from user:{0}  with content: {1}".
-                     format(viber_request.get_sender().get_id(), message))
-        viber.send_messages(viber_request.get_sender().get_id(), [message])
+                      format(viber_request.sender.id, message))
+        viber.send_messages(viber_request.sender.id, [message])
     elif isinstance(viber_request, ViberConversationStartedRequest)\
         or isinstance(viber_request, ViberSubscribedRequest)\
             or isinstance(viber_request, ViberUnsubscribedRequest):
         viber.send_messages(viber_request.user.id,
                             [TextMessage(text="Привет, {0}. Чем я могу тебе помочь".
-                                         format(viber_request.user.name))])
+                                         format(viber_request.user.name.encode('utf-8')))])
     elif isinstance(viber_request, ViberFailedRequest):
         logging.warning("client failed receiving message. failure: {0}".format(viber_request))
     return Response(status=200)
