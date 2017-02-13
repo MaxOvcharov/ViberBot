@@ -22,6 +22,7 @@ logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(a
                     filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
+
 viber = Api(BotConfiguration(
     name=config.appname,
     avatar=config.appavatar,
@@ -29,18 +30,11 @@ viber = Api(BotConfiguration(
 ))
 
 
-# @app.route("/")
-# def hello():
-#     logging.debug("Hello URL is working")
-#     return "<h1 style='color:blue'>Hello There!</h1>"
-
-
 @app.route('/', methods=['POST'])
 def incoming():
     logging.debug("received request. post data: {0}".format(request.get_data()))
 
     viber_request = viber.parse_request(request.get_data())
-
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
         message = viber_request.get_message()
@@ -66,5 +60,5 @@ if __name__ == "__main__":
     scheduler.enter(5, 1, set_webhook, (viber, ))
     t = threading.Thread(target=scheduler.run)
     t.start()
-    #app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=botconfig.ssl_context)
+    app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=botconfig.ssl_context)
 
