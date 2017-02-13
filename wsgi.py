@@ -1,4 +1,4 @@
-from .simpleViberBot import app, set_webhook, viber
+from simpleViberBot import app #, set_webhook, viber
 import time
 import sched
 import threading
@@ -18,7 +18,6 @@ def main():
         t.start()
         logging.debug("Wsgi app is running")
         app.run(host='0.0.0.0', port=8000)
-
     except Exception as e:
         logging.error(e)
 
