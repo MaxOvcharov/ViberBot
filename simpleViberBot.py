@@ -33,7 +33,9 @@ viber = Api(BotConfiguration(
 @app.route('/', methods=['POST'])
 def incoming():
     logging.debug("received request. post data: {0}".format(request.get_data()))
-
+    # Verify the signature of message
+    if not viber.verify_signature(request.get_data(), request.headers.get('X-Viber-Content-Signature')):
+        return Response(status=403)
     viber_request = viber.parse_request(request.get_data())
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
@@ -41,12 +43,14 @@ def incoming():
         logging.debug("Received message from user:{0}  with content: {1}".
                       format(viber_request.sender.id.encode('utf-8')))
         viber.send_messages(viber_request.sender.id, [message])
+    # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
     elif isinstance(viber_request, ViberConversationStartedRequest)\
         or isinstance(viber_request, ViberSubscribedRequest)\
             or isinstance(viber_request, ViberUnsubscribedRequest):
         viber.send_messages(viber_request.user.id,
                             [TextMessage(text="Привет, {0}. Чем я могу тебе помочь?".
                                          format(viber_request.user.name.encode('utf-8')))])
+    # Handle FailedRequest
     elif isinstance(viber_request, ViberFailedRequest):
         logging.warning("client failed receiving message. failure: {0}".format(viber_request))
     return Response(status=200)
@@ -55,6 +59,7 @@ def incoming():
 def set_webhook(viber_bot):
     viber_bot.set_webhook(config.webhook)
     logging.debug("Web hoot was been set")
+
 
 if __name__ == "__main__":
     scheduler = sched.scheduler(time.time(), time.sleep)
