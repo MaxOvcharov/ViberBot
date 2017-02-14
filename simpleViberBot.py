@@ -43,7 +43,7 @@ def incoming():
 
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
-        message = viber_request.message.encode('utf-8')
+        message = str(viber_request.message).encode('utf-8')
         logging.info("Received message from user:{0}".
                      format(viber_request.sender.id.encode('utf-8')))
         if message in content:
