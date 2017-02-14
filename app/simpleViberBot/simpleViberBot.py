@@ -17,7 +17,7 @@ from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-from app import app, db
+from db_conf import db
 import config
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
@@ -31,7 +31,7 @@ viber = Api(BotConfiguration(
 ))
 
 
-@app.route('/', methods=['POST'])
+@db.route('/', methods=['POST'])
 def incoming():
     logging.info("received request. post data: {0}".format(request.get_data()))
     # Verify the signature of message
@@ -80,5 +80,5 @@ if __name__ == "__main__":
     scheduler.enter(5, 1, set_webhook, (viber, ))
     t = threading.Thread(target=scheduler.run)
     t.start()
-    app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=config.ssl_context)
+    db.run(host='0.0.0.0', port=8443, debug=True, ssl_context=config.ssl_context)
 
