@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request, Response
+from flask.ext.sqlalchemy import SQLAlchemy
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
 from viberbot.api.messages import TextMessage, PictureMessage, ContactMessage, VideoMessage
@@ -9,28 +10,27 @@ from viberbot.api.viber_requests import ViberFailedRequest
 from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
-import config
 import time
 import logging
 import sched
 import threading
 import os
 
-from strana_foto import get_content
-
+import config
+import models
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.INFO, filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
+app.config.from_object('config')
+db = SQLAlchemy(app)
 
 viber = Api(BotConfiguration(
-    name=config.appname,
-    avatar=config.appavatar,
-    auth_token=config.auth_token
+    name=config.APP_NAME,
+    avatar=config.APP_AVATAR,
+    auth_token=config.AUTH_TOKEN
 ))
-
-#content = get_content()
 
 
 @app.route('/', methods=['POST'])
@@ -73,7 +73,7 @@ def incoming():
 
 
 def set_webhook(viber_bot):
-    viber_bot.set_webhook(config.webhook)
+    viber_bot.set_webhook(config.WEBHOOK)
     logging.info("Web hoot was been set")
 
 
