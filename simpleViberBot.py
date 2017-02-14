@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, Response
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import request, Response
+from ViberBot import app
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
 from viberbot.api.messages import TextMessage, PictureMessage, ContactMessage, VideoMessage
@@ -17,14 +17,10 @@ import threading
 import os
 
 import config
-import models
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.INFO, filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
-app = Flask(__name__)
-app.config.from_object('config')
-db = SQLAlchemy(app)
 
 viber = Api(BotConfiguration(
     name=config.APP_NAME,
