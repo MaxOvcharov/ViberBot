@@ -6,20 +6,19 @@ import sched
 import threading
 import time
 
-
+import app
+import config
 from flask import request, Response
-from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
-from viberbot.api.messages import TextMessage, PictureMessage
+from viberbot.api.messages import TextMessage
 from viberbot.api.viber_requests import ViberConversationStartedRequest
 from viberbot.api.viber_requests import ViberFailedRequest
 from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-from ViberBot.db_conf import db
-import app
-import config
+from ViberBot.app.db_conf import db
+from viberbot import Api
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.INFO, filename=u'{0}/ViberBot.log'.format(os.getcwd()))
