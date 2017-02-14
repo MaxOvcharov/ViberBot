@@ -40,7 +40,7 @@ def incoming():
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
         message = viber_request.message
-        logging.debug("Received message from user:{0}  with content: {1}".
+        logging.debug("Received message from user:{0}".
                       format(viber_request.sender.id.encode('utf-8')))
         viber.send_messages(viber_request.sender.id, [message])
     # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
