@@ -3,7 +3,7 @@
 from flask import Flask, request, Response
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
-from viberbot.api.messages.text_message import TextMessage
+from viberbot.api.messages import TextMessage, PictureMessage, ContactMessage, VideoMessage
 from viberbot.api.viber_requests import ViberConversationStartedRequest
 from viberbot.api.viber_requests import ViberFailedRequest
 from viberbot.api.viber_requests import ViberMessageRequest
@@ -15,6 +15,8 @@ import logging
 import sched
 import threading
 import os
+
+from strana_foto import get_content
 
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
@@ -29,6 +31,8 @@ viber = Api(BotConfiguration(
     auth_token=config.auth_token
 ))
 
+content = get_content()
+
 
 @app.route('/', methods=['POST'])
 def incoming():
@@ -40,17 +44,22 @@ def incoming():
 
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
-        message = viber_request.message
+        message = viber_request.message.encode('utf-8')
         logging.debug("Received message from user:{0}".
                       format(viber_request.sender.id.encode('utf-8')))
-        viber.send_messages(viber_request.sender.id, [message])
+        if message in content:
+            msg = content[message][0]
+            for photo in msg:
+                viber.send_messages(viber_request.sender.id,
+                                    [PictureMessage(media="{0}".format(photo),
+                                                    text="{0}".format(message))])
 
     # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
     elif isinstance(viber_request, ViberConversationStartedRequest)\
         or isinstance(viber_request, ViberSubscribedRequest)\
             or isinstance(viber_request, ViberUnsubscribedRequest):
         viber.send_messages(viber_request.user.id,
-                            [TextMessage(text="Привет, {0}. Чем я могу тебе помочь?".
+                            [TextMessage(text="Привет, {0}. Какой город тебя интересует?".
                                          format(viber_request.user.name.encode('utf-8')))])
 
     # Handle FailedRequest
