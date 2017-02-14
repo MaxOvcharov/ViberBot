@@ -20,7 +20,7 @@ from strana_foto import get_content
 
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
-                    level=logging.DEBUG,
+                    level=logging.INFO,
                     filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
@@ -36,7 +36,7 @@ content = get_content()
 
 @app.route('/', methods=['POST'])
 def incoming():
-    logging.debug("received request. post data: {0}".format(request.get_data()))
+    logging.info("received request. post data: {0}".format(request.get_data()))
     # Verify the signature of message
     if not viber.verify_signature(request.get_data(), request.headers.get('X-Viber-Content-Signature')):
         return Response(status=403)
@@ -45,8 +45,8 @@ def incoming():
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
         message = viber_request.message.encode('utf-8')
-        logging.debug("Received message from user:{0}".
-                      format(viber_request.sender.id.encode('utf-8')))
+        logging.info("Received message from user:{0}".
+                     format(viber_request.sender.id.encode('utf-8')))
         if message in content:
             msg = content[message][0]
             for photo in msg:
@@ -70,7 +70,7 @@ def incoming():
 
 def set_webhook(viber_bot):
     viber_bot.set_webhook(config.webhook)
-    logging.debug("Web hoot was been set")
+    logging.info("Web hoot was been set")
 
 
 if __name__ == "__main__":
