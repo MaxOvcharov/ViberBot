@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
-
-from ViberBot.app.db_conf import db
+from flask_sqlalchemy import SQLAlchemy
 from simpleViberBot import simpleViberBot, models
 
 
 app = Flask(__name__)
 app.config.from_object('config')
-db.init_app(app)
+db = SQLAlchemy(app)
 
 
