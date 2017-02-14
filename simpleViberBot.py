@@ -52,6 +52,11 @@ def incoming():
                 viber.send_messages(viber_request.sender.id,
                                     [PictureMessage(media="{0}".format(photo),
                                                     text="{0}".format(message))])
+        else:
+            viber.send_messages(viber_request.user.id,
+                                [TextMessage(text="Извините, по Вашему запросу: {0} ничего не найдено.\n"
+                                                  "Попробуйте ввести название города еще раз".
+                                             format(message))])
 
     # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
     elif isinstance(viber_request, ViberConversationStartedRequest)\
