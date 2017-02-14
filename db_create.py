@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from simpleViberBot import db
 import os.path
 
+from migrate.versioning import api
+from simpleViberBot import db
+
+from ViberBot import SQLALCHEMY_DATABASE_URI
+from ViberBot import SQLALCHEMY_MIGRATE_REPO
 
 db.create_all()
 if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):

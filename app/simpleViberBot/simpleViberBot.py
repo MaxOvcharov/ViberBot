@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import logging
+import os
+import sched
+import threading
+import time
+
+
 from flask import request, Response
-from ViberBot import app
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
-from viberbot.api.messages import TextMessage, PictureMessage, ContactMessage, VideoMessage
+from viberbot.api.messages import TextMessage, PictureMessage
 from viberbot.api.viber_requests import ViberConversationStartedRequest
 from viberbot.api.viber_requests import ViberFailedRequest
 from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
-import time
-import logging
-import sched
-import threading
-import os
 
+from app import db
 import config
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
