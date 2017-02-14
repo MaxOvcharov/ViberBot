@@ -17,8 +17,8 @@ from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-import models
-
+from ViberBot.db_conf import db
+import app
 import config
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
@@ -32,7 +32,7 @@ viber = Api(BotConfiguration(
 ))
 
 
-@db.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def incoming():
     logging.info("received request. post data: {0}".format(request.get_data()))
     # Verify the signature of message
