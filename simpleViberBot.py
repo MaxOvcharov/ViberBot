@@ -20,8 +20,7 @@ from strana_foto import get_content
 
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
-                    level=logging.INFO,
-                    filename=u'{0}/ViberBot.log'.format(os.getcwd()))
+                    level=logging.DEBUG, filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
 app = Flask(__name__)
 
