@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.orm import relationship
-from db_conf import db
+from ViberBot.db_conf import db
 
 
 class Cities(db.Model):
