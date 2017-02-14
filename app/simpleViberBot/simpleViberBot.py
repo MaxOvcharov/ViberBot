@@ -17,7 +17,7 @@ from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-from app import db
+from app import app, db
 import config
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
@@ -44,17 +44,17 @@ def incoming():
         message = str(viber_request.message).encode('utf-8')
         logging.info("Received message from user:{0}".
                      format(viber_request.sender.id.encode('utf-8')))
-        if message in content:
-            msg = content[message][0]
-            for photo in msg:
-                viber.send_messages(viber_request.sender.id,
-                                    [PictureMessage(media="{0}".format(photo),
-                                                    text="{0}".format(message))])
-        else:
-            viber.send_messages(viber_request.user.id,
-                                [TextMessage(text="Извините, по Вашему запросу: {0} ничего не найдено.\n"
-                                                  "Попробуйте ввести название города еще раз".
-                                             format(message))])
+        # if message in content:
+        #     msg = content[message][0]
+        #     for photo in msg:
+        #         viber.send_messages(viber_request.sender.id,
+        #                             [PictureMessage(media="{0}".format(photo),
+        #                                             text="{0}".format(message))])
+        # else:
+        #     viber.send_messages(viber_request.user.id,
+        #                         [TextMessage(text="Извините, по Вашему запросу: {0} ничего не найдено.\n"
+        #                                           "Попробуйте ввести название города еще раз".
+        #                                      format(message))])
 
     # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
     elif isinstance(viber_request, ViberConversationStartedRequest)\
