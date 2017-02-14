@@ -37,12 +37,14 @@ def incoming():
     if not viber.verify_signature(request.get_data(), request.headers.get('X-Viber-Content-Signature')):
         return Response(status=403)
     viber_request = viber.parse_request(request.get_data())
+
     # Simple Echo messenger
     if isinstance(viber_request, ViberMessageRequest):
         message = viber_request.message
         logging.debug("Received message from user:{0}".
                       format(viber_request.sender.id.encode('utf-8')))
         viber.send_messages(viber_request.sender.id, [message])
+
     # Hello message for StartedRequest, SubscribedRequest, UnsubscribedRequest
     elif isinstance(viber_request, ViberConversationStartedRequest)\
         or isinstance(viber_request, ViberSubscribedRequest)\
@@ -50,6 +52,7 @@ def incoming():
         viber.send_messages(viber_request.user.id,
                             [TextMessage(text="Привет, {0}. Чем я могу тебе помочь?".
                                          format(viber_request.user.name.encode('utf-8')))])
+
     # Handle FailedRequest
     elif isinstance(viber_request, ViberFailedRequest):
         logging.warning("client failed receiving message. failure: {0}".format(viber_request))
@@ -66,5 +69,5 @@ if __name__ == "__main__":
     scheduler.enter(5, 1, set_webhook, (viber, ))
     t = threading.Thread(target=scheduler.run)
     t.start()
-    app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=botconfig.ssl_context)
+    app.run(host='0.0.0.0', port=8443, debug=True, ssl_context=config.ssl_context)
 
