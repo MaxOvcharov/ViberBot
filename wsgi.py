@@ -3,7 +3,6 @@ import os
 
 from ViberBot.simpleViberBot.simpleViberBot import app
 
-
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.DEBUG,
                     filename=u'{0}/ViberBot.log'.format(os.getcwd()))
