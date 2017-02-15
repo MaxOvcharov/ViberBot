@@ -1,7 +1,7 @@
 import imp
 
 from migrate.versioning import api
-from ViberBot.ViberBot.database import db
+from ViberBot.database import db
 from ViberBot.config.config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO
 
 migration = SQLALCHEMY_MIGRATE_REPO + '/versions/%03d_migration.py' \

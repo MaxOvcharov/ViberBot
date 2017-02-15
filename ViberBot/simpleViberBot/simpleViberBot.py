@@ -30,6 +30,7 @@ viber = Api(BotConfiguration(
     auth_token=config.AUTH_TOKEN
 ))
 app = create_app()
+db.create_all(app.app_context().push())
 
 
 @app.route('/', methods=['POST'])
