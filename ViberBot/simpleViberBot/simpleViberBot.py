@@ -17,8 +17,8 @@ from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-from ViberBot.ViberBot import db, create_app
-from ViberBot.ViberBot.config import config
+from ViberBot import db, create_app
+from ViberBot.config import config
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.INFO, filename=u'{0}/ViberBot.log'.format(os.getcwd()))

@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-from ViberBot.ViberBot.config import config
+from ViberBot.config import config
 from database import db
 
 
