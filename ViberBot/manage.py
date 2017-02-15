@@ -1,8 +1,16 @@
+from flask import Flask
 from flask_script import Manager
-from . import create_app
-from flask_migrate import MigrateCommand
+from flask_migrate import Migrate, MigrateCommand
+from database import db
 
+app = Flask(__name__)
+app.config.from_object('ViberBot.config.config')
+db.init_app(app)
 
-manager = Manager(create_app)
-manager.add_option("-c", "--config", dest="config_module", required=False)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
 manager.add_command('db', MigrateCommand)
+
+if __name__ == '__main__':
+    manager.run()

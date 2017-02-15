@@ -2,15 +2,12 @@
 
 from flask import Flask
 from database import db
-from flask_migrate import Migrate
 
-migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('ViberBot.config.config')
     db.init_app(app)
-    migrate.init_app(app, db)
     with app.app_context():
         # Extensions like Flask-SQLAlchemy now know what the "current" app
         # is while within this block. Therefore, you can now run........
