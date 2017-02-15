@@ -1,7 +1,7 @@
 import logging
 import os
 
-from ViberBot.app import app
+from app import app
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.DEBUG,

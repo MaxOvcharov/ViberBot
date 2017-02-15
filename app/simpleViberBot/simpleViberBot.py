@@ -6,7 +6,6 @@ import sched
 import threading
 import time
 
-import app
 import config
 from flask import request, Response
 from viberbot.api.bot_configuration import BotConfiguration
@@ -17,7 +16,7 @@ from viberbot.api.viber_requests import ViberMessageRequest
 from viberbot.api.viber_requests import ViberSubscribedRequest
 from viberbot.api.viber_requests import ViberUnsubscribedRequest
 
-from ViberBot.app import db
+from app import db, app
 from viberbot import Api
 
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
