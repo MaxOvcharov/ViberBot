@@ -3,10 +3,8 @@
 import os.path
 
 from migrate.versioning import api
-from simpleViberBot import db
-
-from ViberBot import SQLALCHEMY_DATABASE_URI
-from ViberBot import SQLALCHEMY_MIGRATE_REPO
+from ViberBot.ViberBot.database import db
+from ViberBot.config.config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO
 
 db.create_all()
 if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
