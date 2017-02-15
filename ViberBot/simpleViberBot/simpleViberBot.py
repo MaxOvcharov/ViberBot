@@ -23,14 +23,13 @@ from ViberBot.config import config
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
                     level=logging.INFO, filename=u'{0}/ViberBot.log'.format(os.getcwd()))
 
+app = create_app()
 
 viber = Api(BotConfiguration(
     name=config.APP_NAME,
     avatar=config.APP_AVATAR,
     auth_token=config.AUTH_TOKEN
 ))
-app = create_app()
-#db.create_all(app.app_context().push())
 
 
 @app.route('/', methods=['POST'])
